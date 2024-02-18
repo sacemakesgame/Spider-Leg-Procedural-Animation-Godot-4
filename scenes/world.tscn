@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://qvharn5br5xa"]
+
+[ext_resource type="Material" uid="uid://7ws7eqbhvtcy" path="res://assets/grids/_materials/wall_dark.tres" id="1_gbnwy"]
+[ext_resource type="Material" uid="uid://787oumfkka70" path="res://assets/grids/_materials/wall_orange.tres" id="2_ac851"]
+[ext_resource type="PackedScene" uid="uid://crfsfdakl5amm" path="res://spiders/two_legs_guy/two_legs_guy_small.tscn" id="5_b46ie"]
+[ext_resource type="Material" uid="uid://7oiqxs56c22b" path="res://assets/grids/_materials/wall_green.tres" id="5_ndofi"]
+[ext_resource type="PackedScene" uid="uid://bskgh4ximt6cc" path="res://spiders/four_legs_guy/four_legs_guy_thick.tscn" id="5_p5lqp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r78vf"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_eeswf"]
+sky_material = SubResource("ProceduralSkyMaterial_r78vf")
+
+[sub_resource type="Environment" id="Environment_hjvh5"]
+background_mode = 2
+sky = SubResource("Sky_eeswf")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.188235, 0.4, 0.403922, 1)
+fog_light_energy = 0.61
+fog_density = 0.0154
+fog_height = 1024.0
+adjustment_enabled = true
+adjustment_contrast = 1.31
+
+[sub_resource type="BoxMesh" id="BoxMesh_p38mo"]
+size = Vector3(3000, 1, 3000)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hjvh5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.697165, 0.620863, -0.358456, 0, 0.5, 0.866026, 0.71691, 0.603763, -0.348583, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_gbnwy")
+use_collision = true
+mesh = SubResource("BoxMesh_p38mo")
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.639439, 0.413098, -0.648435, 0, 0.843392, 0.537299, 0.768842, -0.34357, 0.539297, -25.2157, 14.0404, 9.54409)
+fov = 82.9
+
+[node name="TwoLegsGuySmall" parent="." instance=ExtResource("5_b46ie")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8537, 0, -32.3594)
+
+[node name="FourLegsGuyThick" parent="." instance=ExtResource("5_p5lqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.588, 0, -10.6022)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-2.89616e-07, 6.62563, 0, -6.62563, -2.89616e-07, 0, 0, 0, 6.62563, -10.5844, -1.70294, 3.679)
+material_override = ExtResource("2_ac851")
+use_collision = true
+height = 2.08379
+sides = 32
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3435, -1.63928, -1)
+material_override = ExtResource("5_ndofi")
+use_collision = true
+radius = 4.055
+radial_segments = 48
+rings = 24
